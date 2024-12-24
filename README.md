@@ -8,7 +8,6 @@ A simple customer support AI agent built with Flask. It uses predefined response
 
 ## Setup Instructions
 1. Clone the repository:
-   ```bash
    git clone <[repository-url](https://github.com/nikhilramini/Thoughtful-AI-Customer-Support-Agent)>
 
 2. Navigate to the project folder:
