@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thoughtful AI Customer Support Agent</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chat-container { max-width: 600px; margin: 0 auto; }
+        .messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; }
+        .user-input { width: 100%; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Thoughtful AI Customer Support Agent</h2>
+        <div class="messages" id="messages"></div>
+        <input type="text" id="user-input" class="user-input" placeholder="Ask me a question..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const messagesDiv = document.getElementById('messages');
+            if (userInput.trim() === "") return;
+
+            // Display user's question
+            messagesDiv.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+
+            // Send request to Flask server
+            fetch('/ask', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'user_input': userInput
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display agent's response
+                messagesDiv.innerHTML += `<p><strong>Agent:</strong> ${data.response}</p>`;
+                document.getElementById('user-input').value = '';
+            });
+        }
+    </script>
+</body>
+</html>
+
